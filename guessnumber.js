@@ -4,6 +4,8 @@ const lblMessage = document.querySelector(".message")
 console.log(lblMessage)
 console.log(lblMessage.textContent)
 
+const title = document.querySelector("h1")
+
 const pbAgain = document.querySelector(".btn.again")
 
 const lblNumber = document.querySelector(".number")
@@ -17,6 +19,8 @@ console.log(lblScore)
 const inpGuess = document.querySelector(".guess")
 console.log(inpGuess)
 
+const lblLastNumber = document.querySelector(".last-number")
+
 let startScore = 20
 
 let secretNumber = 0
@@ -28,16 +32,30 @@ function generateNumber() {
 
 }
 
-pbAgain.addEventListener("click", generateNumber)
+
+
+function lastKnownNumber(guess) {
+    lblLastNumber.textContent = guess
+
+}
+
+function endGame(life) {
+    if (life === 0) {
+        title.textContent = "Du døde lol"
+    }
+}
+
 
 function testNumber() {
     console.log("testNumber")
-    const guess = Number(inpGuess.value)
+    const guess = inpGuess.value
     console.log(inpGuess.value)
     if (guess === secretNumber) {
         lblMessage.textContent = "Godt gættet!"
+        lastKnownNumber(guess)
     } else if (guess < secretNumber || guess > secretNumber){
         lblMessage.textContent = "Forkert Tal"
+
         startScore --;
         lblScore.textContent = startScore;
     } else {
@@ -46,6 +64,8 @@ function testNumber() {
 }
 
 generateNumber()
+
+pbAgain.addEventListener("click", generateNumber)
 
 pbCheck.addEventListener("click", testNumber)
 
